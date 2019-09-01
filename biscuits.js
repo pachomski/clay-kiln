@@ -3,7 +3,7 @@ import store from './lib/core-data/store';
 import utilsAPI from './lib/utils/api';
 import VueNProgress from 'vue-nprogress';
 import conditionalFocus from './directives/conditional-focus';
-import storybookToolbar from './lib/toolbar/storybook-toolbar.vue';
+import storybookToolbar from './lib/toolbar/biscuits-toolbar.vue';
 import VueClickOutside from 'vue-click-outside';
 import 'keen-ui/src/bootstrap'; // import this once, for KeenUI components
 
@@ -40,11 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
     debug: process.env.NODE_ENV !== 'production',
     strict: true,
     el: '#kiln-app',
-    render: h => h('storybook-toolbar'),
+    render: h => h('biscuits-toolbar'),
     store,
     nprogress,
     components: {
-      'storybook-toolbar': storybookToolbar
+      'biscuits-toolbar': biscuitsToolbar
     }
   });
 

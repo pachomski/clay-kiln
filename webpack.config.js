@@ -22,7 +22,7 @@ let plugins = [
     memoizing: true, // used by cache
     coercions: true, // allow coercions
     flattening: true, // allow flattening methods
-    paths: true, // allow deep _.get, _.set, _.has
+    paths: true // allow deep _.get, _.set, _.has
     // note: we're explicitly not allowing chaining or currying
   }),
   new webpack.DefinePlugin({
@@ -66,7 +66,7 @@ if (prod) {
       cssProcessor: cssnano,
       cssProcessorOptions: {
         discardComments: {
-          removeAll: true,
+          removeAll: true
         },
         safe: true // run cssnano in safe mode
       },
@@ -85,53 +85,71 @@ module.exports = {
     edit: './edit.js',
     view: './view.js',
     'view-public': './view-public.js',
-    storybook: './storybook.js'
+    biscuits: './biscuits.js'
   },
   output: {
     path: __dirname,
     filename: 'dist/clay-kiln-[name].js'
   },
   module: {
-    rules: [{
-      // todo: remove vue-unit (and update vue-unit dep) once vue-unit hits 0.3.0
-      test: /node_modules\/(@tom-kitchin\/vue-unit|keen-ui|striptags|clayutils)\//,
-      loader: 'babel-loader'
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }, {
-      test: /\.scss|.css$/,
-      use: styles.extract({
-        fallback: 'style-loader',
-        use: ['css-loader', 'postcss-loader', 'sass-loader']
-      })
-    }, {
-      test: /\.svg$/,
-      use: 'raw-loader'
-    }, {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        esModule: false, // todo: enable this when we can use it with keenUI
-        extractCSS: true,
-        loaders: {
-          css: styles.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'sass-loader?data=@import "styleguide/keen-variables.scss";']
-          }),
-          sass: styles.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'sass-loader?data=@import "styleguide/keen-variables.scss";']
-          }),
-          scss: styles.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'sass-loader?data=@import "styleguide/keen-variables.scss";']
-          }),
-          docs: docs.extract('raw-loader')
+    rules: [
+      {
+        // todo: remove vue-unit (and update vue-unit dep) once vue-unit hits 0.3.0
+        test: /node_modules\/(@tom-kitchin\/vue-unit|keen-ui|striptags|clayutils)\//,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.scss|.css$/,
+        use: styles.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader', 'sass-loader']
+        })
+      },
+      {
+        test: /\.svg$/,
+        use: 'raw-loader'
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          esModule: false, // todo: enable this when we can use it with keenUI
+          extractCSS: true,
+          loaders: {
+            css: styles.extract({
+              fallback: 'style-loader',
+              use: [
+                'css-loader',
+                'postcss-loader',
+                'sass-loader?data=@import "styleguide/keen-variables.scss";'
+              ]
+            }),
+            sass: styles.extract({
+              fallback: 'style-loader',
+              use: [
+                'css-loader',
+                'postcss-loader',
+                'sass-loader?data=@import "styleguide/keen-variables.scss";'
+              ]
+            }),
+            scss: styles.extract({
+              fallback: 'style-loader',
+              use: [
+                'css-loader',
+                'postcss-loader',
+                'sass-loader?data=@import "styleguide/keen-variables.scss";'
+              ]
+            }),
+            docs: docs.extract('raw-loader')
+          }
         }
       }
-    }]
+    ]
   },
   resolve: {
     // note: when importing vue components, you don't have to specify .vue
