@@ -84,7 +84,8 @@ module.exports = {
   entry: {
     edit: './edit.js',
     view: './view.js',
-    'view-public': './view-public.js'
+    'view-public': './view-public.js',
+    storybook: './storybook.js'
   },
   output: {
     path: __dirname,
