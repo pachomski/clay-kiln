@@ -60,11 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // (e.g. embeds that rely on client-side js, which doesn't run in edit mode)
   // to add special edit-mode-only styling
   // // document.body.classList.add('kiln-edit-mode');
-  store.dispatch('preload')
+  store.dispatch('preload');
 
-
-  //   .then(() => require('./lib/decorators').decorateAll())
-  //   .then(val => {
-  //     console.log('done');
-  //   });
 });
