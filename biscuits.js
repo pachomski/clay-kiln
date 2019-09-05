@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import store from './lib/core-data/store';
+import store from './lib/core-data/biscuit-store';
 import utilsAPI from './lib/utils/api';
 import VueNProgress from 'vue-nprogress';
 import conditionalFocus from './directives/conditional-focus';
-import storybookToolbar from './lib/toolbar/biscuits-toolbar.vue';
+import biscuitsToolbar from './lib/toolbar/biscuits-toolbar.vue';
 import VueClickOutside from 'vue-click-outside';
 import 'keen-ui/src/bootstrap'; // import this once, for KeenUI components
 
@@ -55,4 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.kiln.plugins && Array.isArray(window.kiln.plugins)) {
     window.kiln.plugins.forEach(plugin => plugin(store));
   }
+
+  // add `kiln-edit-mode` class to body. this allows certain components
+  // (e.g. embeds that rely on client-side js, which doesn't run in edit mode)
+  // to add special edit-mode-only styling
+  // // document.body.classList.add('kiln-edit-mode');
+  store.dispatch('preload')
+
+
+  //   .then(() => require('./lib/decorators').decorateAll())
+  //   .then(val => {
+  //     console.log('done');
+  //   });
 });

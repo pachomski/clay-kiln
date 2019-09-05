@@ -1,9 +1,9 @@
 <template>
 	<div class="kiln-wrapper storybook-mode">
-		<!-- <alert-container></alert-container>
+		<!-- <alert-container></alert-container> -->
 		<div class="kiln-progress">
 			<progress-bar></progress-bar>
-		</div> -->
+		</div> 
 		<ui-toolbar Title="Storybook" :raised="false">
 			 <ui-icon-button
 				color="black"
@@ -31,7 +31,6 @@ export default {
     'alert-container': alertContainer,
     'progress-bar': progressBar,
     'ui-icon-button': UiIconButton
-
   }
 };
 </script>
