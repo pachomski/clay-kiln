@@ -12,6 +12,7 @@
 				type="secondary"
 			></ui-icon-button>
 		</ui-toolbar>
+		<simple-modal></simple-modal>
 	</div>
 </template>
 
@@ -21,6 +22,7 @@ import UiMenu from 'keen/UiMenu';
 import UiIconButton from 'keen/UiIconButton';
 import alertContainer from './alert-container.vue';
 import progressBar from './progress.vue';
+import simpleModal from './simple-modal.vue';
 
 export default {
   data() {
@@ -30,7 +32,8 @@ export default {
     'ui-toolbar': UiToolbar,
     'alert-container': alertContainer,
     'progress-bar': progressBar,
-    'ui-icon-button': UiIconButton
+	'simple-modal': simpleModal,
+	'ui-icon-button': UiIconButton,
   }
 };
 </script>
