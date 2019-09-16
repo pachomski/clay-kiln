@@ -6,6 +6,8 @@ import VueNProgress from 'vue-nprogress';
 import store from './lib/core-data/biscuit-store';
 import { getEventPath } from './lib/utils/events';
 import { add as addInput } from './lib/forms/inputs';
+import { hasClickedFocusableEl } from './lib/decorators/focus';
+import { hasClickedSelectableEl } from './lib/decorators/select';
 import conditionalFocus from './directives/conditional-focus';
 import biscuitsToolbar from './lib/toolbar/biscuits-toolbar.vue';
 import VueClickOutside from 'vue-click-outside';
@@ -56,7 +58,7 @@ require.context('./styleguide', true, /^.*\.(scss|css)$/);
 
 // Add inputs
 const inputReq = require.context('./inputs', false, /\.vue$/);
-inputReq.keys().forEach(function(key) {
+inputReq.keys().forEach(key => {
   addInput(basename(key, extname(key)), inputReq(key));
 });
 
@@ -104,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // when clicks bubble up to the document, close the current form or pane / unselect components
   document.body.addEventListener('click', e => {
     const ePath = getEventPath(e);
-    console.log(ePath);
 
     if (
       _.find(
