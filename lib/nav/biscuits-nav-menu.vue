@@ -177,7 +177,7 @@
         const formattedComponents = [],
           componentBiscuits = _.get(state, 'componentBiscuits', {});
 
-        Object.keys(componentBiscuits).map(componentName => {
+        Object.keys(componentBiscuits).sort().map(componentName => {
           const biscuits = _.get(componentBiscuits, `${componentName}._biscuits`);
   
           formattedComponents.push({
