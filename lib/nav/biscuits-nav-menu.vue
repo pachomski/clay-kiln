@@ -134,8 +134,8 @@
     <nav class="nav-menu">
       <!-- nav menu buttons on small viewport (< 600px) -->
       <ui-icon-button class="nav-menu-button-small" buttonType="button" type="secondary" color="white" icon="arrow_back" @click="closeNav"></ui-icon-button>
-      <ui-collapsible v-for="c in components" :title="c.label"  v-bind:key="c.id">
-         <ui-menu :options="c.biscuits"></ui-menu>
+      <ui-collapsible v-for="component in components" :title="component.name"  v-bind:key="component.name">
+         <ui-menu  :options="component.biscuits" @select="linkToBiscuit"></ui-menu>
       </ui-collapsible>
     </nav>
   </transition>
@@ -153,106 +153,31 @@
   export default {
     computed: mapState({
       displayNavMenu: state => _.get(state, 'ui.showNavBackground', false),
-      componentHasBiscuits(component) {
-        return component.biscuits && component.biscuits.length > 0;
-      },
-      components() {
-        return [{
-          id: 'my-pages',
-          label: 'My Pages',
-          disabled: this.currentDrawer === 'my-pages',
-          action: this.openNav,
-          desktopNav: true,
-          mobileNav: true,
-          biscuits: [
-            {
-              id: 1,
-              label: '1',
-              href: '#1'
-            },
-            {
-              id: 2,
-              label: '2',
-              href: '#2'
-            },
-            {
-              id: 3,
-              label: '3',
-              href: '#3'
-            },
-            {
-              id: 4,
-              label: '4',
-              href: '#4'
-            },
-            {
-              id: 5,
-              label: '5',
-              href: '#5'
-            }
-          ]
-        },
-        {
-          id: 'all-pages',
-          label: 'All Pages',
-          disabled: this.currentDrawer === 'all-pages',
-          action: this.openNav,
-          desktopNav: true,
-          mobileNav: true,
-          biscuits: [
-            {
-              id: 1,
-              label: '1',
-              href: '#1'
-            },
-            {
-              id: 2,
-              label: '2',
-              href: '#2'
-            },
-            {
-              id: 3,
-              label: '3',
-              href: '#3'
-            },
-            {
-              id: 4,
-              label: '4',
-              href: '#4'
-            },
-            {
-              id: 5,
-              label: '5',
-              href: '#5'
-            }
-          ]
-        },
-        {
-          id: 'new-page',
-          label: 'New Page',
-          action: this.openNav,
-          desktopNav: true,
-          icon: 'add'
-        },
-        {
-          id: 'users',
-          label: 'Users',
-          action: this.openNav,
-          settings: true,
-          adminOnly: true
-        },
-        {
-          id: 'signout',
-          label: 'Sign Out',
-          action: this.signout,
-          settings: true
-        }
-        ];
+      components: state => {
+        const formattedComponents = [],
+          componentBiscuits = _.get(state, 'componentBiscuits', {});
+
+        Object.keys(componentBiscuits).map(componentName => {
+          const biscuits = _.get(componentBiscuits, `${componentName}._biscuits`);
+  
+          formattedComponents.push({
+            name: componentName,
+            biscuits: Object.keys(biscuits).map(biscuitName => ({
+              id: biscuitName,
+              label: biscuitName,
+              href: `/_components/${componentName}.biscuit?b=${biscuitName}`
+            }))
+          });
+        });
+        return formattedComponents;
       }
     }),
     methods: {
       closeNav() {
         this.$store.dispatch('hideNavBackground');
+      },
+      linkToBiscuit({ href }) {
+        window.location.href = href;
       }
     },
     components: _.merge({
