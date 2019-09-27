@@ -4,19 +4,34 @@
   @include toolbar-base();
 
   .tiny-biscuit {
-	  width: 35px;
+	  width: 40px;
 	  margin-right: 15px;
   }
 
+  .toolbar-right {
+	display: flex;
+	align-items: center;
+
+	.app-name {
+		font-size: 22px;
+		margin: 0 5px;
+	}
+  } 
+
   .ui-toolbar--type-colored {
 	  background-color: #010101;
+  }
+
+  .ui-toolbar__brand-text {
+	  text-transform: capitalize;
   }
 </style>
 
 <template>
 	<div class="kiln-wrapper storybook-mode">
-		<ui-toolbar :brand="appName"  :title="biscuitTitle"  type="colored" text-color="white"  @nav-icon-click="openMenu">
-			<div slot="actions">
+		<ui-toolbar :brand="currentBiscuitComponent"  :title="currentBiscuit"  type="colored" text-color="white"  @nav-icon-click="openMenu">
+			<div slot="actions" class="toolbar-right">
+				<h1 class="app-name">{{appName}}</h1>
 				<img class="tiny-biscuit" src="https://i.dlpng.com/static/png/4165299_thumb.png" />
 			</div>
 		</ui-toolbar>
@@ -47,14 +62,11 @@ export default {
     };
   },
   computed: mapState({
-    biscuitTitle: state => {
-	  const { name, componentName } = _.get(state, 'currentBiscuit', {});
-
-      if (name) {
-        return `${componentName}: [${name}]`;
-      } else {
-        return componentName;
-	  }
+    currentBiscuitComponent: state => {
+      return _.get(state, 'currentBiscuit.componentName', '');
+    },
+    currentBiscuit: state => {
+      return _.get(state, 'currentBiscuit.name', '');
     }
   }),
   methods: {
