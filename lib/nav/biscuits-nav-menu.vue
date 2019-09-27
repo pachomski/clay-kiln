@@ -124,7 +124,7 @@
   }
 
   ui-menu {
-    paddig: 0;
+    padding: 0;
   }
 
 </style>
