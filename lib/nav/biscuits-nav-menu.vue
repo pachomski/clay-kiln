@@ -102,6 +102,31 @@
     }
   }
 
+  .ui-collapsible {
+    margin: 0;
+  }
+  
+  .ui-collapsible__header {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: unset;
+    line-height: unset;
+    background-color: #c3c3c3;
+  }
+
+  .ui-collapsible__body {
+    border: unset;
+    padding: 0;
+  }
+
+  ui-collapsible__body-wrapper {
+    height: unset ;
+  }
+
+  ui-menu {
+    paddig: 0;
+  }
+
 </style>
 
 <template>
@@ -109,6 +134,9 @@
     <nav class="nav-menu">
       <!-- nav menu buttons on small viewport (< 600px) -->
       <ui-icon-button class="nav-menu-button-small" buttonType="button" type="secondary" color="white" icon="arrow_back" @click="closeNav"></ui-icon-button>
+      <ui-collapsible v-for="c in components" :title="c.label"  v-bind:key="c.id">
+         <ui-menu :options="c.biscuits"></ui-menu>
+      </ui-collapsible>
     </nav>
   </transition>
 </template>
@@ -118,20 +146,51 @@
   import { mapState } from 'vuex';
   import navMenuButton from './nav-menu-button.vue';
   import UiIconButton from 'keen/UiIconButton';
+  import UiCollapsible from 'keen/UiCollapsible';
   import UiMenu from 'keen/UiMenu';
   import UiButton from 'keen/UiButton';
 
   export default {
     computed: mapState({
       displayNavMenu: state => _.get(state, 'ui.showNavBackground', false),
-      menuOptions() {
+      componentHasBiscuits(component) {
+        return component.biscuits && component.biscuits.length > 0;
+      },
+      components() {
         return [{
           id: 'my-pages',
           label: 'My Pages',
           disabled: this.currentDrawer === 'my-pages',
           action: this.openNav,
           desktopNav: true,
-          mobileNav: true
+          mobileNav: true,
+          biscuits: [
+            {
+              id: 1,
+              label: '1',
+              href: '#1'
+            },
+            {
+              id: 2,
+              label: '2',
+              href: '#2'
+            },
+            {
+              id: 3,
+              label: '3',
+              href: '#3'
+            },
+            {
+              id: 4,
+              label: '4',
+              href: '#4'
+            },
+            {
+              id: 5,
+              label: '5',
+              href: '#5'
+            }
+          ]
         },
         {
           id: 'all-pages',
@@ -139,7 +198,34 @@
           disabled: this.currentDrawer === 'all-pages',
           action: this.openNav,
           desktopNav: true,
-          mobileNav: true
+          mobileNav: true,
+          biscuits: [
+            {
+              id: 1,
+              label: '1',
+              href: '#1'
+            },
+            {
+              id: 2,
+              label: '2',
+              href: '#2'
+            },
+            {
+              id: 3,
+              label: '3',
+              href: '#3'
+            },
+            {
+              id: 4,
+              label: '4',
+              href: '#4'
+            },
+            {
+              id: 5,
+              label: '5',
+              href: '#5'
+            }
+          ]
         },
         {
           id: 'new-page',
@@ -171,6 +257,7 @@
     },
     components: _.merge({
       'nav-menu-button': navMenuButton,
+      UiCollapsible,
       UiIconButton,
       UiMenu,
       UiButton

@@ -1,5 +1,6 @@
 @import 'animations';
 @import 'layers';
+@import 'colors';
 
 $height: 56px;
 
@@ -21,4 +22,86 @@ $height: 56px;
   // this mixin should be applied to the `body` of the page
   // and should override any layout styling
   padding-top: $height !important;
+}
+
+@mixin toolbar-base {
+  // base styles from edit-toolbar.vue
+  // this mixin should be applied to all toolbars to that they sort of look the same
+
+  body {
+    @include toolbar-padding();
+  }
+
+  .kiln-wrapper {
+    @include toolbar-wrapper();
+
+    .ui-snackbar-container {
+      @include confirm-layer();
+
+      bottom: 0;
+      position: fixed;
+    }
+
+    .alert-container {
+      pointer-events: none;
+
+      & > * {
+        pointer-events: all;
+      }
+    }
+  }
+
+  .kiln-progress {
+    height: 3px;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+  }
+
+  .toolbar-action-menu.ui-icon-button {
+    display: inline-flex;
+
+    &.drawerOpen {
+      background:  rgba(0, 0, 0, 0.1);
+    }
+
+    @media screen and (min-width: 600px) {
+      display: none;
+    }
+  }
+
+  .toolbar-action-button.ui-icon-button {
+    display: none;
+
+    &.is-open-drawer {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    @media screen and (min-width: 600px) {
+      display: inline-flex;
+    }
+  }
+
+  .toolbar-publish-button.is-open-drawer {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .toolbar-button-text {
+    font-weight: bold;
+  }
+
+  .kiln-toolbar-actions {
+    .toolbar-publish-button {
+      display: none;
+
+      @media screen and (min-width: 600px) {
+        display: inline-flex;
+      }
+    }
+  }
+
+  .ui-menu-option__content.activeMenuButton {
+    background: $md-grey-200;
+  }
 }

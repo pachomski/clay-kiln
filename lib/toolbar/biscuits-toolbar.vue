@@ -1,13 +1,18 @@
+<style lang="sass">
+  @import '../../styleguide/toolbar';
+
+  @include toolbar-base();
+</style>
+
 <template>
 	<div class="kiln-wrapper storybook-mode">
-		<!-- <alert-container></alert-container> -->
-		<div class="kiln-progress">
-			<progress-bar></progress-bar>
-		</div> 
-		<ui-toolbar Title="Storybook" :raised="false" @nav-icon-click="openMenu"></ui-toolbar>
+		<ui-toolbar Title="Storybook" type="colored" text-color="white" :raised=true @nav-icon-click="openMenu"></ui-toolbar>
 		<simple-modal></simple-modal>
 		<nav-background></nav-background>
 		<biscuits-nav-menu></biscuits-nav-menu>
+		<div class="kiln-progress">
+			<progress-bar></progress-bar>
+		</div> 
 	</div>
 </template>
 
@@ -41,12 +46,3 @@ export default {
   }
 };
 </script>
-
-<style lang="sass">
-   	@import '../../styleguide/toolbar';
-	@import '../../styleguide/layers';
-
-	.kiln-wrapper {
-    	@include toolbar-wrapper();
-	}
-</style>
