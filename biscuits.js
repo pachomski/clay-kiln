@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.kiln.plugins.forEach(plugin => plugin(store));
   }
 
-  store.dispatch('preload')
-
+  store.dispatch('preload');
 });
 
